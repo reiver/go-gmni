@@ -27,7 +27,7 @@ func Dial() (Conn, error) {
 	return DialTo("")
 }
 
-// DialTo makes an un-secure Nake client connection to the the address specified by `addr`.
+// DialTo makes an un-secure Naked client connection to the the address specified by `addr`.
 //
 // One would might use this function if one is trying to debug a Naked server.
 // And one might create a Naked server because TLS encryption is being handled elsewhere.
