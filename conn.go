@@ -2,6 +2,7 @@ package gemini
 
 import (
 	"crypto/tls"
+	"fmt"
 	"io"
 	"net"
 )
@@ -38,7 +39,7 @@ func DialTo(addr string) (Conn, error) {
 	const network = "tcp"
 
 	if "" == addr {
-		addr = "127.0.0.1:"+string(DefaultNakedServerPort)
+		addr = fmt.Sprintf("127.0.0.1:%d", DefaultNakedServerPort)
 	}
 
 	conn, err := net.Dial(network, addr)
@@ -61,7 +62,7 @@ func DialToTLS(addr string, tlsConfig *tls.Config) (Conn, error) {
 	const network = "tcp"
 
 	if "" == addr {
-		addr = "127.0.0.1:"+string(DefaultServerPort)
+		addr = fmt.Sprintf("127.0.0.1:%d", DefaultServerPort)
 	}
 
 	conn, err := tls.Dial(network, addr, tlsConfig)
