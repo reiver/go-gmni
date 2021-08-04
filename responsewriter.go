@@ -3,8 +3,6 @@ package gemini
 import (
 	"fmt"
 	"io"
-	"mime"
-	"strings"
 )
 
 // A ResponseWriter interface is used by a Gemini Protocol handler to construct a Gemini Protocol response.
@@ -12,7 +10,7 @@ import (
 // A ResponseWriter may not be used after the Handler.ServeGemini method has returned.
 type ResponseWriter interface {
 	Write([]byte) (int, error)
-	WriteHeader(statusCode int, mimeType string, mediaParameters map[string]string) error
+	WriteHeader(statusCode int, meta string) error
 }
 
 type internalResponseWriter struct {
@@ -30,7 +28,7 @@ func (receiver internalResponseWriter) Write(p []byte) (int, error) {
 	return writer.Write(p)
 }
 
-func (receiver *internalResponseWriter) WriteHeader(statusCode int, mediaType string, mediaParameters map[string]string) error {
+func (receiver *internalResponseWriter) WriteHeader(statusCode int, meta string) error {
 	if nil == receiver {
 		return errNilReceiver
 	}
@@ -40,7 +38,7 @@ func (receiver *internalResponseWriter) WriteHeader(statusCode int, mediaType st
 		return errNilWriter
 	}
 
-	err := writeHeader(writer, statusCode, mediaType, mediaParameters)
+	err := writeHeader(writer, statusCode, meta)
 	if nil != err {
 		return err
 	}
@@ -49,29 +47,13 @@ func (receiver *internalResponseWriter) WriteHeader(statusCode int, mediaType st
 	return nil
 }
 
-
-func writeHeader(writer io.Writer, statusCode int, mediaType string, mediaParameters map[string]string) error {
+func writeHeader(writer io.Writer, statusCode int, meta string) error {
 
 	if nil == writer {
 		return errNilWriter
 	}
 
-	var header string
-	{
-		var buffer strings.Builder
-
-		fmt.Fprintf(&buffer, "%d", statusCode)
-
-		mediaTypeAndParameters := mime.FormatMediaType(mediaType, mediaParameters)
-		if "" != mediaTypeAndParameters {
-			buffer.WriteRune(' ')
-			io.WriteString(writer, mediaTypeAndParameters)
-		}
-
-		buffer.WriteString("\r\n")
-
-		header = buffer.String()
-	}
+	var header string = fmt.Sprintf("%d %s\r\n", statusCode, meta)
 
 	var err error
 	{
