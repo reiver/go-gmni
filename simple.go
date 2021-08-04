@@ -271,3 +271,54 @@ func BadRequest(w ResponseWriter, message interface{}) error {
 
 	return nil
 }
+
+// ClientCertificateRequired writes a `60 CLIENT CERTIFICATE REQUIRED` Gemini Protocol response to `w`.
+func ClientCertificateRequired(w ResponseWriter, message interface{}) error {
+	if nil == w {
+		return errNilResponseWriter
+	}
+
+	const statusCode = 60
+
+	var meta string = caststring(message)
+
+	if err := w.WriteHeader(statusCode, meta); nil != err {
+		return err
+	}
+
+	return nil
+}
+
+// CertificateNotAuthorised writes a `61 CERTIFICATE NOT AUTHORISED` Gemini Protocol response to `w`.
+func CertificateNotAuthorised(w ResponseWriter, message interface{}) error {
+	if nil == w {
+		return errNilResponseWriter
+	}
+
+	const statusCode = 61
+
+	var meta string = caststring(message)
+
+	if err := w.WriteHeader(statusCode, meta); nil != err {
+		return err
+	}
+
+	return nil
+}
+
+// CertificateNotValid writes a `62 CERTIFICATE NOT VALID` Gemini Protocol response to `w`.
+func CertificateNotValid(w ResponseWriter, message interface{}) error {
+	if nil == w {
+		return errNilResponseWriter
+	}
+
+	const statusCode = 62
+
+	var meta string = caststring(message)
+
+	if err := w.WriteHeader(statusCode, meta); nil != err {
+		return err
+	}
+
+	return nil
+}
