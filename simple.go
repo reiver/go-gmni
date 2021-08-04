@@ -69,7 +69,7 @@ func Success(w ResponseWriter, mediaType string, mediaParameters map[string]stri
 }
 
 // RedirectTemporary writes a `30 REDIRECT - TEMPORARY` Gemini Protocol response to `w`.
-func RedirectTemporary(w ResponseWriter, target  interface{}) error {
+func RedirectTemporary(w ResponseWriter, target interface{}) error {
 	if nil == w {
 		return errNilResponseWriter
 	}
@@ -86,7 +86,7 @@ func RedirectTemporary(w ResponseWriter, target  interface{}) error {
 }
 
 // RedirectPermanent writes a `31 REDIRECT - PERMANENT` Gemini Protocol response to `w`.
-func RedirectPermanent(w ResponseWriter, target  interface{}) error {
+func RedirectPermanent(w ResponseWriter, target interface{}) error {
 	if nil == w {
 		return errNilResponseWriter
 	}
@@ -94,6 +94,108 @@ func RedirectPermanent(w ResponseWriter, target  interface{}) error {
 	var meta string = caststring(target)
 
 	const statusCode = 31
+
+	if err := w.WriteHeader(statusCode, meta); nil != err {
+		return err
+	}
+
+	return nil
+}
+
+// TemporaryFailure writes a `40 TEMPORARY FAILURE` Gemini Protocol response to `w`.
+func TemporaryFailure(w ResponseWriter, message interface{}) error {
+	if nil == w {
+		return errNilResponseWriter
+	}
+
+	var meta string = caststring(message)
+
+	const statusCode = 40
+
+	if err := w.WriteHeader(statusCode, meta); nil != err {
+		return err
+	}
+
+	return nil
+}
+
+// ServerUnavailable writes a `41 SERVER UNAVAILABLE` Gemini Protocol response to `w`.
+func ServerUnavailable(w ResponseWriter, message interface{}) error {
+	if nil == w {
+		return errNilResponseWriter
+	}
+
+	var meta string = caststring(message)
+
+	const statusCode = 41
+
+	if err := w.WriteHeader(statusCode, meta); nil != err {
+		return err
+	}
+
+	return nil
+}
+
+// CGIError writes a `42 CGI ERROR` Gemini Protocol response to `w`.
+func CGIError(w ResponseWriter, message interface{}) error {
+	if nil == w {
+		return errNilResponseWriter
+	}
+
+	var meta string = caststring(message)
+
+	const statusCode = 42
+
+	if err := w.WriteHeader(statusCode, meta); nil != err {
+		return err
+	}
+
+	return nil
+}
+
+// ProxyError writes a `43 PROXY ERROR` Gemini Protocol response to `w`.
+func ProxyError(w ResponseWriter, message interface{}) error {
+	if nil == w {
+		return errNilResponseWriter
+	}
+
+	var meta string = caststring(message)
+
+	const statusCode = 43
+
+	if err := w.WriteHeader(statusCode, meta); nil != err {
+		return err
+	}
+
+	return nil
+}
+
+// SlowDown writes a `44 SLOW DOWN` Gemini Protocol response to `w`.
+func SlowDown(w ResponseWriter, message interface{}) error {
+	if nil == w {
+		return errNilResponseWriter
+	}
+
+	var meta string = caststring(message)
+
+	const statusCode = 44
+
+	if err := w.WriteHeader(statusCode, meta); nil != err {
+		return err
+	}
+
+	return nil
+}
+
+// PermanentFailure writes a `50 PERMANENT FAILURE` Gemini Protocol response to `w`.
+func PermanentFailure(w ResponseWriter, message interface{}) error {
+	if nil == w {
+		return errNilResponseWriter
+	}
+
+	var meta string = caststring(message)
+
+	const statusCode = 50
 
 	if err := w.WriteHeader(statusCode, meta); nil != err {
 		return err
@@ -111,6 +213,40 @@ func NotFound(w ResponseWriter, message interface{}) error {
 	const statusCode = 51
 
 	var meta string = caststring(message)
+
+	if err := w.WriteHeader(statusCode, meta); nil != err {
+		return err
+	}
+
+	return nil
+}
+
+// Gone writes a `52 GONE` Gemini Protocol response to `w`.
+func Gone(w ResponseWriter, message interface{}) error {
+	if nil == w {
+		return errNilResponseWriter
+	}
+
+	var meta string = caststring(message)
+
+	const statusCode = 52
+
+	if err := w.WriteHeader(statusCode, meta); nil != err {
+		return err
+	}
+
+	return nil
+}
+
+// ProxyRequestRefused writes a `53 PROXY REQUEST REFUSED` Gemini Protocol response to `w`.
+func ProxyRequestRefused(w ResponseWriter, message interface{}) error {
+	if nil == w {
+		return errNilResponseWriter
+	}
+
+	var meta string = caststring(message)
+
+	const statusCode = 53
 
 	if err := w.WriteHeader(statusCode, meta); nil != err {
 		return err
