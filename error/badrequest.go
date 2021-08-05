@@ -13,13 +13,13 @@ type BadRequest interface {
 	GeminiResponseBadRequest()
 }
 
-func ErrorBadRequest(a ...interface{}) error {
+func BadRequestError(a ...interface{}) error {
 	msg := fmt.Sprint(a...)
 
 	return internalBadRequest{msg:msg}
 }
 
-func ErrorfBadRequest(format string, a ...interface{}) error {
+func BadRequestErrorf(format string, a ...interface{}) error {
 	msg := fmt.Sprintf(format, a...)
 
 	return internalBadRequest{msg:msg}
