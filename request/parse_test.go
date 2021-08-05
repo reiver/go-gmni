@@ -278,6 +278,13 @@ func TestParse_failure(t *testing.T) {
 			Input:    "apple banana cherry",
 			Expected: "gemini: response: 59 BAD REQUEST",
 		},
+
+
+
+		{
+			Input:    "gemini://example.com/\rapple banana cherry date",
+			Expected: "gemini: response: 59 BAD REQUEST",
+		},
 	}
 
 	for testNumber, test := range tests {
