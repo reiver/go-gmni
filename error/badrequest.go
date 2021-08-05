@@ -19,6 +19,12 @@ func ErrorBadRequest(a ...interface{}) error {
 	return internalBadRequest{msg:msg}
 }
 
+func ErrorfBadRequest(format string, a ...interface{}) error {
+	msg := fmt.Sprintf(format, a...)
+
+	return internalBadRequest{msg:msg}
+}
+
 type internalBadRequest struct {
 	msg string
 }
