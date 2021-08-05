@@ -10,7 +10,9 @@ type BadRequest interface {
 	GeminiResponseBadRequest()
 }
 
-func ErrorBadRequest(msg string) error {
+func ErrorBadRequest(a ...interface{}) error {
+	msg := fmt.Sprint(a...)
+
 	return internalBadRequest{msg:msg}
 }
 
