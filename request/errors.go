@@ -1,9 +1,9 @@
 package geminirequest
 
 import (
-	"errors"
+	"github.com/reiver/go-gemini/error"
 )
 
 var (
-	errBadRequest = errors.New("gemini: Bad Request")
+	errBadRequest error = geminierror.ErrorBadRequest()
 )

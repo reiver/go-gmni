@@ -163,120 +163,120 @@ func TestParse_failure(t *testing.T) {
 	}{
 		{
 			Input:    "",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 
 
 
 		{
 			Input:    "gemini://example.com/",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 		{
 			Input:    "gemini://example.com/path",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 		{
 			Input:    "gemini://example.com/path/to",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 		{
 			Input:    "gemini://example.com/path/to/something",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 		{
 			Input:    "gemini://example.com/path/to/something.txt",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 
 
 
 		{
 			Input:    "gemini://jam.strawberry/",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 		{
 			Input:    "gemini://jam.strawberry/jar.php",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 		{
 			Input:    "gemini://jam.strawberry/apple/",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 		{
 			Input:    "gemini://jam.strawberry/apple/banana",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 		{
 			Input:    "gemini://jam.strawberry/apple/banana/",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 		{
 			Input:    "gemini://jam.strawberry/apple/banana/cherry",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 		{
 			Input:    "gemini://jam.strawberry/apple/banana/cherry/",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 		{
 			Input:    "gemini://jam.strawberry/apple/banana/cherry/date",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 		{
 			Input:    "gemini://jam.strawberry/apple/banana/cherry/date?a=1&bb=22&ccc=333",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 
 
 
 		{
 			Input:    "gemini://peanut.butter/🙂.txt",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 		{
 			Input:    "gemini://peanut.butter/once/🙂.txt",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 		{
 			Input:    "gemini://peanut.butter/once/twice/🙂.txt",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 		{
 			Input:    "gemini://peanut.butter/once/twice/thrice/🙂.txt",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 		{
 			Input:    "gemini://peanut.butter/once/twice/thrice/fource/🙂.txt",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 
 
 
 		{
 			Input:    "http://changelog.ca/",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 
 
 
 		{
 			Input:    "hash://sha256/0ba904eae8773b70c75333db4de2f3ac45a8ad4ddba1b242f0b3cfc199391dd8",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 
 
 
 		{
 			Input:    "data:text/plain;charset=utf-8;base64,VGhpcyBpcyBhIHRlc3Qh",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 
 
 
 		{
 			Input:    "apple banana cherry",
-			Expected: "gemini: Bad Request",
+			Expected: "gemini: response: 59 BAD REQUEST",
 		},
 	}
 
