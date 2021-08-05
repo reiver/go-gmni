@@ -1,6 +1,9 @@
 package geminierror
 
 import (
+	"github.com/reiver/go-gemini/response/code"
+	"github.com/reiver/go-gemini/response/name"
+
 	"fmt"
 	"strings"
 )
@@ -25,11 +28,11 @@ func (internalBadRequest) GeminiResponseBadRequest() {
 }
 
 func (internalBadRequest) GeminiReponseStatusCode() int {
-	return 59
+	return geminiresponsecode.BadRequest
 }
 
 func (internalBadRequest) GeminiReponseStatusName() string {
-	return "BAD REQUEST"
+	return geminiresponsename.BadRequest
 }
 
 func (receiver internalBadRequest) Error() string {
