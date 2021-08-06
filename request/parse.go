@@ -1,15 +1,23 @@
 package geminirequest
 
 import (
+	"github.com/reiver/go-gemini/error"
+
 	"github.com/reiver/go-utf8s"
 
 	"io"
 	"strings"
 )
 
-// Max represents the maximum number of bytes that a permitted, by the Gemini Protocol specification,
+// MaxTarget represents the maximum number of bytes that are permitted, by the Gemini Protocol specification,
+// for a Gemini Protocol target.
+const MaxTarget = 1024
+
+// MaxRequestLine represents the maximum number of bytes that are permitted, by the Gemini Protocol specification,
 // for a Gemini Protocol request-line.
-const Max = 1024
+const MaxRequestLine = MaxTarget + 2
+
+const maxIterations = MaxRequestLine
 
 // Parse parses a Gemini Protocol request-line, and returns the target.
 //
@@ -56,39 +64,34 @@ func Parse(reader io.Reader) (string, error) {
 
 		for {
 			numIterations++
-			if Max < numIterations {
+			if maxIterations < numIterations {
 /////////////////////////////// RETURN
-				return "", errBadRequest
+				return "", geminierror.BadRequestErrorf("max permitted iterations is %d, but did %d", maxIterations, numIterations)
 			}
 
 			r, size, err := utf8s.ReadRune(reader)
 			numBytes += size
 			if utf8s.RuneError == r {
 /////////////////////////////// RETURN
-				return "", errBadRequest
+				return "", geminierror.BadRequestError("receiver rune-error when trying to parse UTF-8 text")
 			}
 			if nil != err && io.EOF != err {
 /////////////////////////////// RETURN
 				return "", err
 			}
 
-			if numBytes > Max {
-/////////////////////////////// RETURN
-				return "", errBadRequest
-			}
-
 			if '\r' == r {
 
 				if io.EOF == err {
 /////////////////////////////////////// RETURN
-					return "", errBadRequest
+					return "", geminierror.BadRequestError("unexpected EOF")
 				}
 
 				r, size, err := utf8s.ReadRune(reader)
 				numBytes += size
 				if utf8s.RuneError == r {
 /////////////////////////////////////// RETURN
-					return "", errBadRequest
+					return "", geminierror.BadRequestError("receiver rune-error when trying to parse UTF-8 text")
 				}
 				if nil != err && io.EOF != err {
 /////////////////////////////////////// RETURN
@@ -97,18 +100,41 @@ func Parse(reader io.Reader) (string, error) {
 
 				if '\n' != r {
 /////////////////////////////////////// RETURN
-					return "",  errBadRequest
+					return "",  geminierror.BadRequestError("CR not followed by LF")
+				}
+
+				if io.EOF != err {
+					r, size, err := utf8s.ReadRune(reader)
+					numBytes += size
+					if utf8s.RuneError == r {
+/////////////////////////////////////////////// RETURN
+						return "", geminierror.BadRequestError("receiver rune-error when trying to parse UTF-8 text")
+					}
+					if nil != err && io.EOF != err {
+/////////////////////////////////////////////// RETURN
+						return "", err
+					}
+
+					if io.EOF != err {
+/////////////////////////////////////////////// RETURN
+						return "",  geminierror.BadRequestError("multi-line request")
+					}
 				}
 
 		/////////////// BREAK
 				break
 			}
 
+			if max := MaxTarget; numBytes > max {
+/////////////////////////////// RETURN
+				return "", geminierror.BadRequestErrorf("target exceeds %d bytes", max)
+			}
+
 			target.WriteRune(r)
 
 			if io.EOF == err {
 /////////////////////////////// RETURN
-				return "", errBadRequest
+				return "", geminierror.BadRequestError("unexpected EOF")
 			}
 		}
 	}

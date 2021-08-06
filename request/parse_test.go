@@ -131,6 +131,53 @@ func TestParse_success(t *testing.T) {
 			Input:    "apple banana cherry\r\n",
 			Expected: "apple banana cherry",
 		},
+
+
+
+		{
+			Input:
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+
+				"\r\n",
+			Expected:
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef",
+		},
 	}
 
 	for testNumber, test := range tests {
@@ -139,6 +186,7 @@ func TestParse_success(t *testing.T) {
 
 		if nil != err {
 			t.Errorf("For test #%d, did not expect an error, but actually got one.", testNumber)
+			t.Log("INPUT LEN:", len(test.Input))
 			t.Logf("INPUT:    %q", test.Input)
 			t.Logf("EXPECTED: %q", test.Expected)
 			t.Log("ERROR:", err)
@@ -163,127 +211,187 @@ func TestParse_failure(t *testing.T) {
 	}{
 		{
 			Input:    "",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 
 
 
 		{
 			Input:    "gemini://example.com/",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 		{
 			Input:    "gemini://example.com/path",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 		{
 			Input:    "gemini://example.com/path/to",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 		{
 			Input:    "gemini://example.com/path/to/something",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 		{
 			Input:    "gemini://example.com/path/to/something.txt",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 
 
 
 		{
 			Input:    "gemini://jam.strawberry/",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 		{
 			Input:    "gemini://jam.strawberry/jar.php",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 		{
 			Input:    "gemini://jam.strawberry/apple/",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 		{
 			Input:    "gemini://jam.strawberry/apple/banana",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 		{
 			Input:    "gemini://jam.strawberry/apple/banana/",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 		{
 			Input:    "gemini://jam.strawberry/apple/banana/cherry",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 		{
 			Input:    "gemini://jam.strawberry/apple/banana/cherry/",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 		{
 			Input:    "gemini://jam.strawberry/apple/banana/cherry/date",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 		{
 			Input:    "gemini://jam.strawberry/apple/banana/cherry/date?a=1&bb=22&ccc=333",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 
 
 
 		{
 			Input:    "gemini://peanut.butter/🙂.txt",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 		{
 			Input:    "gemini://peanut.butter/once/🙂.txt",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 		{
 			Input:    "gemini://peanut.butter/once/twice/🙂.txt",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 		{
 			Input:    "gemini://peanut.butter/once/twice/thrice/🙂.txt",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 		{
 			Input:    "gemini://peanut.butter/once/twice/thrice/fource/🙂.txt",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 
 
 
 		{
 			Input:    "http://changelog.ca/",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 
 
 
 		{
 			Input:    "hash://sha256/0ba904eae8773b70c75333db4de2f3ac45a8ad4ddba1b242f0b3cfc199391dd8",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 
 
 
 		{
 			Input:    "data:text/plain;charset=utf-8;base64,VGhpcyBpcyBhIHRlc3Qh",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 
 
 
 		{
 			Input:    "apple banana cherry",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: unexpected EOF",
 		},
 
 
 
 		{
 			Input:    "gemini://example.com/\rapple banana cherry date",
-			Expected: "gemini: response: 59 BAD REQUEST",
+			Expected: "gemini: response: 59 BAD REQUEST: CR not followed by LF",
+		},
+
+
+
+		{
+			Input:
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+
+				"too-much"+
+
+				"\r\n",
+			Expected: "gemini: response: 59 BAD REQUEST: target exceeds 1024 bytes",
+		},
+
+
+
+		{
+			Input:
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+				"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+"0123456789abcdef"+
+
+				"\r\n"+
+
+				"this-should-not-be-here",
+			Expected: "gemini: response: 59 BAD REQUEST: multi-line request",
 		},
 	}
 
@@ -302,6 +410,7 @@ func TestParse_failure(t *testing.T) {
 		if expected, actual := test.Expected, err.Error(); expected != actual {
 			t.Errorf("For test #%d, the actual error is not what was expected.", testNumber)
 			t.Logf("TARGET: %q", target)
+			t.Log("INPUT LEN:", len(test.Input))
 			t.Logf("INPUT:    %q", test.Input)
 			t.Logf("EXPECTED: %q", expected)
 			t.Logf("ACTUAL:   %q", actual)
